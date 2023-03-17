@@ -4,14 +4,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {CartScreen} from '../screens/cart/cartScreen';
 import {ProductDetail} from '../screens/productDetail/productDetail';
 import {Product as ProductType} from '../types/types';
+import {HeaderCart} from '../components/HeaderCart';
+import { ShoppingCart } from '../screens/ShoppingCart/shoppingCartScreen';
 
 export enum RootNavigationRoute {
   cartRoute = 'cartRoute',
   ProductDetailRoute = 'ProductDetailRoute',
+  ShoppingCartRoute = 'ShoppingCartRoute',
 }
 
 export type RootNavigationProps = {
   [RootNavigationRoute.cartRoute]: undefined;
+  [RootNavigationRoute.ShoppingCartRoute]: undefined;
   [RootNavigationRoute.ProductDetailRoute]: {
     product: ProductType;
   };
@@ -29,6 +33,14 @@ const RootNavigation = () => {
           options={{
             headerTitle: 'MINI MARKET',
             headerTitleAlign: 'left',
+            headerRight: props => <HeaderCart {...props} />,
+          }}
+        />
+        <Stack.Screen
+          name={RootNavigationRoute.ShoppingCartRoute}
+          component={ShoppingCart}
+          options={{
+            headerTitle: 'Shopping Cart',
           }}
         />
         <Stack.Group
