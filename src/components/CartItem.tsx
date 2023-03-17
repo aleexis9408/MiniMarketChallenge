@@ -3,7 +3,8 @@ import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import {CartProduct} from '../types/types';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigationRoute} from '../navigation/rootNavigation';
-import { moneyFormat } from '../utils/currencyFormat';
+import {moneyFormat} from '../utils/currencyFormat';
+import {Badge} from './Badge';
 
 interface Props {
   cartProduct: CartProduct;
@@ -11,12 +12,24 @@ interface Props {
 
 export const CartItem = ({cartProduct}: Props) => {
   const navigation = useNavigation();
-  /* const handleGoToDetail = () =>
-    navigation.navigate(RootNavigationRoute.ProductDetailRoute, {product:cartProduct.product}); */
+  const handleGoToDetail = () =>
+    navigation.navigate(RootNavigationRoute.ProductDetailRoute, {
+      product: cartProduct.product,
+    });
 
   return (
     <View style={[styles.cartItem]}>
-      <View style={styles.cartItem_photo}></View>
+      <Badge
+        value={cartProduct.quantity}
+        size={40}
+        customStyle={{
+          badge: styles.cartItem_badge,
+          badge_value: styles.cartItem_badge_text,
+        }}
+      />
+      <TouchableOpacity
+        style={styles.cartItem_photo}
+        onPress={handleGoToDetail}></TouchableOpacity>
       <View style={styles.cartItem_contain}>
         <Text style={styles.cartItem_contain_name}>
           {cartProduct?.product?.name}
@@ -64,5 +77,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: 'purple',
     paddingVertical: 20,
+  },
+  cartItem_badge: {
+    marginLeft: 10,
+    marginRight: 20,
+  },
+  cartItem_badge_text: {
+    fontSize: 16,
   },
 });
