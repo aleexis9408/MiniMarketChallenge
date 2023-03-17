@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Product as ProductType} from '../types/types';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigationRoute} from '../navigation/rootNavigation';
@@ -21,9 +21,15 @@ export const ProductItem = ({product}: Props) => {
     (item: CartProduct) => item.product.id === product.id,
   );
 
+  let heights = [120, 150];
+  let randomIndex = Math.floor(Math.random() * heights.length);
+  let height = heights[randomIndex];
+
   return (
-    <TouchableOpacity style={[styles.productItem]} onPress={handleGoToDetail}>
-      <Text>{product.name}</Text>
+    <TouchableOpacity
+      style={[styles.productItem, {height}]}
+      onPress={handleGoToDetail}>
+      <Image source={{uri: product.url}} style={styles.productItem_img} />
       {cartItem?.quantity && (
         <Badge
           value={cartItem?.quantity}
@@ -42,11 +48,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 100,
     width: 100,
-    marginHorizontal: 10,
-    marginVertical: 10,
+    marginHorizontal: 5,
+    marginVertical: 5,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 2,
+  },
+  productItem_img: {
+    height: '100%',
+    width: '100%',
   },
   badge: {
     position: 'absolute',

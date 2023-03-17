@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
 import {CartProduct} from '../types/types';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigationRoute} from '../navigation/rootNavigation';
@@ -29,7 +29,13 @@ export const CartItem = ({cartProduct}: Props) => {
       />
       <TouchableOpacity
         style={styles.cartItem_photo}
-        onPress={handleGoToDetail}></TouchableOpacity>
+        onPress={handleGoToDetail}>
+        <Image
+          resizeMode="contain"
+          style={styles.cartItem_photo_img}
+          source={{uri: cartProduct.product.url}}
+        />
+      </TouchableOpacity>
       <View style={styles.cartItem_contain}>
         <Text style={styles.cartItem_contain_name}>
           {cartProduct?.product?.name}
@@ -56,7 +62,10 @@ const styles = StyleSheet.create({
   cartItem_photo: {
     height: 90,
     width: 80,
-    backgroundColor: 'gray',
+  },
+  cartItem_photo_img: {
+    width: '100%',
+    height: '100%',
   },
   cartItem_contain: {
     paddingHorizontal: 10,

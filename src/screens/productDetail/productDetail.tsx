@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {moneyFormat} from '../../utils/currencyFormat';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -43,7 +43,11 @@ export const ProductDetail = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.productDetail_body}>
-        <View style={styles.productDetail_body_photo} />
+        <Image
+          resizeMode="contain"
+          style={styles.productDetail_body_photo}
+          source={{uri: product.url}}
+        />
       </View>
       <View style={styles.productDetail_footer}>
         <Text style={styles.productDetail_footer_name}>{product.name}</Text>
@@ -117,7 +121,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  productDetail_body_photo: {},
+  productDetail_body_photo: {
+    width: '100%',
+    height: 150,
+  },
   productDetail_footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
