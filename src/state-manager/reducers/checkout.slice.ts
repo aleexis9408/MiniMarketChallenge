@@ -9,7 +9,7 @@ export const checkoutSlice = createSlice({
   reducers: {
     add(state: any, action: any) {
       const updated = state.find((item: CartProduct) => {
-        if (item.product.id == action.payload.product.id) {
+        if (item.product?.id === action.payload?.product?.id) {
           item.quantity++;
           return true;
         }
@@ -50,16 +50,16 @@ export const checkoutSlice = createSlice({
 const selectCartEntities = (state: any) => state;
 
 export const selectCartItems = createSelector(selectCartEntities, state => {
-  return state.cart;
+  return state.checkout;
 });
 
 export const selectCartCount = createSelector(selectCartEntities, state => {
-  return state.cart.length;
+  return state.checkout.length;
 });
 
 export const selectGrandTotal = createSelector(selectCartEntities, state => {
   let total = 0;
-  state.cart.forEach((item: CartProduct) => {
+  state.checkout.forEach((item: CartProduct) => {
     total += item.product.price * item.quantity;
   });
 
